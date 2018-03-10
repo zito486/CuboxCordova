@@ -5,19 +5,25 @@
     
     document.getElementById("cube").addEventListener('click', function (event) {
         scoreValue += 1; 
-        if (panelClassName.trim() == 'show-front') {
+        if (panelClassName.trim() === 'show-front') {
             scoreValue = 0;  
         }
         document.getElementById("scoreNum").innerText = scoreValue;
+        if (document.getElementById("highscoreNum").innerText < scoreValue) {
+            document.getElementById("highscoreNum").innerText = scoreValue;
+        }
         box.removeClassName(panelClassName);
         panelClassName = changeClass(panelClassName); 
         box.addClassName(panelClassName);
         var lastClass = panelClassName;
         setTimeout(function () {
-            if (panelClassName == lastClass) { //Si es el que traias hace 2 segundos 
-                if (panelClassName.trim() != 'show-front') {    //y no es rojo, pierdes
+            if (panelClassName === lastClass) { //Si es el que traias hace 2 segundos 
+                if (panelClassName.trim() !== 'show-front') {    //y no es rojo, pierdes
                     scoreValue = 0;
                     document.getElementById("scoreNum").innerText = scoreValue;
+                    if (document.getElementById("highscoreNum").innerText < scoreValue) {
+                        document.getElementById("highscoreNum").innerText = scoreValue;
+                    }
                 }
                 box.removeClassName(panelClassName);
                 panelClassName = changeClass(panelClassName);
@@ -53,7 +59,7 @@ function changeClass(oldClass) {
             break;
         default:
     }
-    if (newClass == oldClass) {
+    if (newClass === oldClass) {
         newClass = changeClass(oldClass);
     }
     return newClass;
